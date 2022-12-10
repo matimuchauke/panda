@@ -1,0 +1,56 @@
+version: '3'
+
+volumes:
+  panda_local_postgres_data: { }
+  panda_local_postgres_data_backups: { }
+
+services:
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: panda_local_django
+    container_name: panda_local_django
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres
+    ports:
+      - "8000:8000"
+    command: /start
+
+  postgres:
+    image: postgres:14
+    container_name: panda_local_postgres
+    volumes:
+      - panda_local_postgres_data:/var/lib/postgresql/data:Z
+      - panda_local_postgres_data_backups:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres
+
+  redis:
+    image: redis:6
+    container_name: panda_local_redis
+
+  celeryworker:
+    <<: *django
+    image: panda_local_celeryworker
+    container_name: panda_local_celeryworker
+    depends_on:
+      - redis
+      - postgres
+    ports: [ ]
+    command: /start-celeryworker
+
+
+  flower:
+    <<: *django
+    image: panda_local_flower
+    container_name: panda_local_flower
+    ports:
+      - "5555:5555"
+    command: /start-flower

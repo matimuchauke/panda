@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=panda_backend_developer_test
+POSTGRES_USER=WhJLWCGBoaNqYQyHjpLYMlohcJDypCtB
+POSTGRES_PASSWORD=kdXSuj9pzaJX0sjZ82JHTYQd9dQjqbBTvA0HvzdmxLUYTr9Vuw2p9SZOlOniZBNj

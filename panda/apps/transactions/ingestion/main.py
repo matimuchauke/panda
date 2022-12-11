@@ -5,9 +5,9 @@ from panda.utils.ingestion import CsvExtractor, IngestionProcess
 
 
 class CsvIngestionProcess(IngestionProcess):
+    """ TODO : Use Dependency Injection """
 
     def __init__(self, csv_file: str):
-        """ TODO : Use Dependency Injection """
         self.extractor = CsvExtractor(csv_file, delimiter=',')
         self.validator = CsvRowValidator()
         self.transformer = CsvRowTransformer()

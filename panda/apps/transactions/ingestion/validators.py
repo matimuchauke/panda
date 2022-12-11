@@ -27,7 +27,7 @@ class CsvRowValidator(Validator):
             )
         except ValidationError as e:
             logger.debug(e.errors())
-        return False
+            return False
 
     def valid_cell_length(self, row: List):
         return len(row) == len(self.headings)

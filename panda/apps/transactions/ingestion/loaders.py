@@ -11,9 +11,18 @@ from panda.utils.ingestion import Loader
 class CsvLoader(Loader):
     def __init__(self):
         self.dataset = StringIO()
+        self.count = 0
+        self.chunk_size = 10000
 
     def insert(self, row: Transaction):
         csv.writer(self.dataset).writerow(row.dict().values())
+        self.count += 1
+        if self.count == self.chunk_size:
+            self.load()
+            self.dataset = StringIO()
+            self.count = 0
+            self.chunk_size = 10000
+            # TODO : Refactoring
 
     def load(self):
         db_settings = settings.DATABASES.get('default')

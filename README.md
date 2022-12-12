@@ -29,9 +29,9 @@ Docker Compose 1.17+
         against a given rule set. After the validation is successful, each 
         row is transformed by updating the currency to Euro.
      * The validated and processed data is then imported directly into the 
-        database as CSV using psycopg2 copy_from function. 
-     * The reason why the psycopg2 copy_from function was used over the normal
-       tradition insert or copy command is for performance, as normal insert 
+        database as CSV using psycopg2 `copy_from` function. 
+     * The reason why the psycopg2 `copy_from` function was used over the
+       traditional `insert` or `copy` command is for performance, as normal `insert` 
        statements have a lot of overhead.
      * The ingestion process runs on a separate Celery process. 
 
